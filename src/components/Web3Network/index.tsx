@@ -16,6 +16,8 @@ import { useEffect } from 'react'
 import { setSourceChain, setDestinationChain } from '../../state/application/actions'
 import { getDestinationChainName, getSourceChainName } from '../../services/umbria/fetchers/service'
 import { ChevronDownIcon } from '@heroicons/react/outline'
+import { updateUserExpertMode } from '../../state/user/actions'
+import { useExpertModeManager } from '../../state/user/hooks'
 
 function Web3Network(): JSX.Element | null {
   const { account, chainId, library } = useActiveWeb3React()
@@ -25,6 +27,7 @@ function Web3Network(): JSX.Element | null {
   var destinationChain = useDestinationChain()
   var sourceChain = useSourceChain()
   var otherChainId = 0
+  var [isExpertMode] = useExpertModeManager();
 
   if (!account) {
     return (
@@ -45,6 +48,12 @@ function Web3Network(): JSX.Element | null {
   if (!chainId) {
     return null
   }
+
+  useEffect(() => {
+    if (!isExpertMode) {
+      dispatch(updateUserExpertMode({ userExpertMode: true }))
+    }
+  }, [dispatch, isExpertMode])
 
   function updateNetworks() {}
 

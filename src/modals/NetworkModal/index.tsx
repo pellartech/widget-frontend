@@ -176,6 +176,29 @@ export const SUPPORTED_NETWORKS: {
     rpcUrls: ['https://rpc.moonriver.moonbeam.network'],
     blockExplorerUrls: ['https://blockscout.moonriver.moonbeam.network'],
   },
+  // TESTNET STUFF
+  [ChainId.RINKEBY]: {
+    chainId: '0x4',
+    chainName: 'Rinkeby',
+    nativeCurrency: {
+      name: 'Ethereum',
+      symbol: 'ETH',
+      decimals: 18,
+    },
+    rpcUrls: ['https://rinkeby.infura.io/v3/0c829710467141dc87fc7fb5b7555ad2'],
+    blockExplorerUrls: ['https://rinkeby.etherscan.io'],
+  },
+  [ChainId.MATIC_TESTNET]: {
+    chainId: '0x13881',
+    chainName: 'Matic Testnet',
+    nativeCurrency: {
+      name: 'Matic',
+      symbol: 'MATIC',
+      decimals: 18,
+    },
+    rpcUrls: ['https://matic-mumbai.chainstacklabs.com/'],
+    blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
+  },
 }
 
 var destinationModalVisible = false

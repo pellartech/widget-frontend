@@ -53,6 +53,26 @@ export const BRIDGE_ADDRESS_DEFAULT = '0x4103c267Fba03A1Df4fe84Bc28092d629Fa3f42
 export const BRIDGE_ADDRESS_ETH_MATIC = BRIDGE_ADDRESS_DEFAULT
 export const BRIDGE_ADDRESS_MATIC_ETH = BRIDGE_ADDRESS_DEFAULT
 
+// testing parts
+export const TEST_ADDRESS_RINKEBY = '0x7b96BcB6F3Dfd64a448eABdC59e74F89Ce487228'
+export const TEST_ADDRESS_MUMBAI = '0x7F55D8FF0634e9ba36Dd141817AF5aFbD0A57996'
+export const BRIDGE_ADDRESS_TEST = '0xf99209b3ba36082DFE3FEdbada0B190fcde2BdD8'
+export const TEST_BRIDGE_PAIRS = [
+  {
+    source: ChainId.MATIC_TESTNET,
+    destination: ChainId.RINKEBY,
+    address: BRIDGE_ADDRESS_TEST,
+    enabled: true,
+  },
+  {
+    source: ChainId.RINKEBY,
+    destination: ChainId.MATIC_TESTNET,
+    address: BRIDGE_ADDRESS_TEST,
+    enabled: true,
+  },
+]
+
+
 export const BRIDGE_PAIRS = [
   {
     source: ChainId.MATIC,

@@ -59,7 +59,14 @@ import {
   getSourceChainName,
   getGasToTransfer,
 } from '../../../services/umbria/fetchers/service'
-import { BRIDGE_ADDRESS_DEFAULT, BRIDGE_PAIRS, NETWORK_LABEL } from '../../../config/networks'
+import {
+  BRIDGE_ADDRESS_DEFAULT,
+  BRIDGE_PAIRS,
+  NETWORK_LABEL,
+  TEST_ADDRESS_MUMBAI,
+  TEST_ADDRESS_RINKEBY,
+  BRIDGE_ADDRESS_TEST,
+} from '../../../config/networks'
 import { useTransactionAdder } from '../../../state/transactions/hooks'
 import { ERC20_BYTES32_ABI } from '../../../constants/abis/erc20'
 import { updateOutputAmount } from '../../../state/application/actions'
@@ -277,19 +284,32 @@ export default function Swap() {
     })
   )
 
-  if (chainId.toString() == '1') {
+  if (chainId.toString() == '4') {
     dispatch(
       setDestinationChain({
-        chainId: '137',
+        chainId: '80001',
       })
     )
   } else {
     dispatch(
       setDestinationChain({
-        chainId: '1',
+        chainId: '4',
       })
     )
   }
+  // if (chainId.toString() == '1') {
+  //   dispatch(
+  //     setDestinationChain({
+  //       chainId: '137',
+  //     })
+  //   )
+  // } else {
+  //   dispatch(
+  //     setDestinationChain({
+  //       chainId: '1',
+  //     })
+  //   )
+  // }
 
   const handleSwap = async () => {
     if (currencies.INPUT.isNative) {
@@ -299,8 +319,9 @@ export default function Swap() {
 
           const destinationChainName = NETWORK_LABEL[destinationChain]
 
-          if (destinationChainName == 'ethereum') {
-            wrappedNativeAssetAddress = '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619'
+          if (destinationChainName.toLowerCase() == 'rinkeby') {
+            // wrappedNativeAssetAddress = '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619'
+            wrappedNativeAssetAddress = '0xc778417E063141139Fce010982780140Aa0cD5Ab' // rinkeby
           } else {
             wrappedNativeAssetAddress = '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
           }
@@ -318,7 +339,7 @@ export default function Swap() {
                 library
                   .getSigner()
                   .sendTransaction({
-                    to: BRIDGE_ADDRESS_DEFAULT,
+                    to: BRIDGE_ADDRESS_TEST, // pellar test
                     value: formattedAmounts[Field.INPUT].toBigNumber(),
                   })
                   .then((res) => {
@@ -369,7 +390,7 @@ export default function Swap() {
 
             if (parseFloat(formattedAmounts[Field.INPUT]) <= maxTransfer) {
               contract
-                .transfer(BRIDGE_ADDRESS_DEFAULT, numberOfTokens.toBigNumber())
+                .transfer(BRIDGE_ADDRESS_TEST, numberOfTokens.toBigNumber())
 
                 .then((res) => {
                   console.log(res)
@@ -494,7 +515,11 @@ export default function Swap() {
   //     router.push(`/swap/${Currency.getNativeCurrencySymbol(chainId)}`);
   //   }
   // }, [chainId, previousChainId, router]);
-
+  console.log(
+    `valid: ${!isValid} priceImpactSeverity: ${priceImpactSeverity} expert: ${!isExpertMode}  swapCallback: ${!!swapCallbackError}\n ${
+      !isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError
+    }`
+  )
   return (
     <Container id="swap-page" className="py-4 md:py-8 lg:py-12">
       <Head>
@@ -587,7 +612,8 @@ export default function Swap() {
                   }
                 }}
                 id="swap-button"
-                disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
+                // disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
+                disabled={!(formattedAmounts[Field.INPUT] > 0)}
                 error={isValid && priceImpactSeverity > 2 && !swapCallbackError}
               >
                 {swapInputError ? i18n._(t`Bridge`) : i18n._(t`Bridge`)}
