@@ -27,8 +27,7 @@ function Web3Network(): JSX.Element | null {
   var destinationChain = useDestinationChain()
   var sourceChain = useSourceChain()
   var otherChainId = 0
-  var [isExpertMode] = useExpertModeManager();
-
+  var [isExpertMode] = useExpertModeManager()
   if (!account) {
     return (
       <div className="flex items-center rounded bg-dark-900 hover:bg-dark-800 p-0.5 whitespace-nowrap text-sm font-bold cursor-pointer select-none pointer-events-auto">

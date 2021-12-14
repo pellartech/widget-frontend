@@ -1,4 +1,4 @@
-import { NETWORK_ICON, NETWORK_LABEL, BRIDGE_PAIRS } from '../../config/networks'
+import { NETWORK_ICON, NETWORK_LABEL, BRIDGE_PAIRS, TEST_BRIDGE_PAIRS } from '../../config/networks'
 import { useModalOpen, useNetworkModalToggle } from '../../state/application/hooks'
 
 import { ApplicationModal } from '../../state/application/actions'
@@ -6,7 +6,7 @@ import { ChainId } from '@sushiswap/sdk'
 import Image from 'next/image'
 import Modal from '../../components/Modal'
 import ModalHeader from '../../components/ModalHeader'
-import React from 'react'
+import React, { useEffect } from 'react'
 import cookie from 'cookie-cutter'
 import { useActiveWeb3React } from '../../hooks/useActiveWeb3React'
 import { forEach } from 'lodash'
@@ -222,7 +222,7 @@ export default function NetworkModal(): JSX.Element | null {
 
   const dispatch = useDispatch()
 
-  BRIDGE_PAIRS.forEach((pair, index) => {
+  TEST_BRIDGE_PAIRS.forEach((pair, index) => {
     if (pair.enabled) {
       networkButtons.push(
         <div key={index}>

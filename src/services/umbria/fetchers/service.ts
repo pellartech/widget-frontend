@@ -45,7 +45,7 @@ export const getAssetPricesUSD = async () => {
 
 export const getGasToTransfer = async (network: string, ticker: string) => {
   try {
-    if (network.toLowerCase() == 'poygon') {
+    if (network.toLowerCase() == 'polygon') {
       network = 'matic'
     }
     const response = await fetch(

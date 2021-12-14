@@ -72,7 +72,6 @@ export const TEST_BRIDGE_PAIRS = [
   },
 ]
 
-
 export const BRIDGE_PAIRS = [
   {
     source: ChainId.MATIC,
