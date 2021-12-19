@@ -60,7 +60,6 @@ export default function CurrencyInputPanel({
   locked = false,
   customBalanceText,
 }: CurrencyInputPanelProps) {
-  const { i18n } = useLingui()
   const [modalOpen, setModalOpen] = useState(false)
   const { account } = useActiveWeb3React()
   const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
@@ -119,7 +118,7 @@ export default function CurrencyInputPanel({
                           currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
                         : currency?.symbol) || (
                         <div className="px-2 py-1 mt-1 text-xs font-medium bg-transparent border rounded-full hover:bg-primary border-low-emphesis text-secondary whitespace-nowrap ">
-                          {i18n._(t`Select a token`)}
+                          {`Select a token`}
                         </div>
                       )}
                     </div>
@@ -147,7 +146,7 @@ export default function CurrencyInputPanel({
                   size="xs"
                   className="text-xs font-medium bg-transparent border rounded-full hover:bg-primary border-low-emphesis text-secondary whitespace-nowrap"
                 >
-                  {i18n._(t`Max`)}
+                  {`Max`}
                 </Button>
               )}
               <Input.Numeric
@@ -164,7 +163,7 @@ export default function CurrencyInputPanel({
                       renderBalance(selectedCurrencyBalance)
                     ) : (
                       <>
-                        {i18n._(t`Balance:`)} {formatCurrencyAmount(selectedCurrencyBalance, 4)} {currency.symbol}
+                        {`Balance:`} {formatCurrencyAmount(selectedCurrencyBalance, 4)} {currency.symbol}
                       </>
                     )}
                   </div>
