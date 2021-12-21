@@ -3,7 +3,6 @@ import { useLingui } from '@lingui/react'
 import { useRouter } from 'next/router'
 
 const Back = () => {
-  const { i18n } = useLingui()
   const router = useRouter()
   return (
     <div>
@@ -20,7 +19,7 @@ const Back = () => {
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
         </svg>
-        <span>{i18n._(t`Go Back`)}</span>
+        <span>{`Go Back`}</span>
       </a>
     </div>
   )

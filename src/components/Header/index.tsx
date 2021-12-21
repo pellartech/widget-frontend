@@ -9,12 +9,10 @@ import { t } from '@lingui/macro'
 import { useActiveWeb3React } from '../../hooks/useActiveWeb3React'
 import { useETHBalances } from '../../state/wallet/hooks'
 import { useSourceChain, useDestinationChain } from '../../state/application/hooks'
-import { useLingui } from '@lingui/react'
 import cookie from 'cookie-cutter'
 import { setDestinationChain, setSourceChain } from '../../state/application/actions'
 import { useDispatch } from 'react-redux'
 function AppBar(): JSX.Element {
-  const { i18n } = useLingui()
   const { account, chainId, library } = useActiveWeb3React()
   const dispatch = useDispatch()
   const initialChain = ChainId.MAINNET.toString()
@@ -67,7 +65,7 @@ function AppBar(): JSX.Element {
                 <div className="flex -mr-2 sm:hidden">
                   {/* Mobile menu button */}
                   <Popover.Button className="inline-flex items-center justify-center p-2 rounded-md text-primary hover:text-high-emphesis focus:outline-none">
-                    <span className="sr-only">{i18n._(t`Open main menu`)}</span>
+                    <span className="sr-only">{`Open main menu`}</span>
                   </Popover.Button>
                 </div>
               </div>
