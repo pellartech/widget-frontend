@@ -177,7 +177,7 @@ export function CurrencySearch({
   return (
     <div className="flex flex-col max-h-[inherit]">
       <ModalHeader className="h-full" onClose={onDismiss} title="Select a token" />
-      {!currencyList && (
+      {/* {!currencyList && (
         <div className="mt-0 mb-3 sm:mt-3 sm:mb-8">
           <input
             type="text"
@@ -191,7 +191,7 @@ export function CurrencySearch({
             className="w-full bg-transparent border border-dark-700 focus:border-transparent focus:border-gradient-r-blue-pink-dark-900 rounded placeholder-secondary focus:placeholder-primary font-bold text-base px-6 py-3.5"
           />
         </div>
-      )}
+      )} */}
       {showCommonBases && (
         <div className="mb-4">
           <CommonBases chainId={chainId} onSelect={handleCurrencySelect} selectedCurrency={selectedCurrency} />

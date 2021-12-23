@@ -236,7 +236,7 @@ export default function WalletModal({
     }
     return (
       <div className="flex flex-col space-y-4">
-        <ModalHeader title="Select a Wallet" onClose={toggleWalletModal} />
+        <ModalHeader title="Connect your Wallet" onClose={toggleWalletModal} />
         <div className="flex flex-col space-y-6">
           {walletView === WALLET_VIEWS.PENDING ? (
             <PendingView

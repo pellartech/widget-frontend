@@ -222,13 +222,13 @@ export default function NetworkModal(): JSX.Element | null {
 
   const dispatch = useDispatch()
 
-  TEST_BRIDGE_PAIRS.forEach((pair, index) => {
+  BRIDGE_PAIRS.forEach((pair, index) => {
     if (pair.enabled) {
       networkButtons.push(
         <div key={index}>
           <button
             key={index}
-            className="w-full col-span-1 p-px rounded bg-gradient-to-r from-blue to-pink"
+            className="w-full col-span-1 p-px rounded gradient-border"
             onClick={() => {
               const params = SUPPORTED_NETWORKS[pair.source]
 
@@ -267,8 +267,8 @@ export default function NetworkModal(): JSX.Element | null {
   return (
     <Modal isOpen={networkModalOpen} onDismiss={toggleNetworkModal} maxWidth={672}>
       <div className="mb-6 text-lg text-primary">
-        You are currently connected to the <span className="font-bold text-blue">{sourceChain}</span> network and are
-        bridging to the <span className="font-bold text-blue">{destinationChain}</span>
+        Currently Bridging from <span className="font-bold network">{sourceChain}</span> network to the{' '}
+        <span className="font-bold network">{destinationChain}</span> Network
         {networkButtons}
       </div>
     </Modal>

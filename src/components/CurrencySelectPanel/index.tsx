@@ -42,11 +42,11 @@ export default function CurrencySelectPanel({
         <div className="w-full" onClick={onClick}>
           <div
             className="items-center h-full text-xl font-medium border-none outline-none cursor-pointer select-none"
-            onClick={() => {
-              if (!disableCurrencySelect) {
-                setModalOpen(true)
-              }
-            }}
+            // onClick={() => {
+            //   if (!disableCurrencySelect) {
+            //     setModalOpen(true)
+            //   }
+            // }}
           >
             <div className="flex">
               {currency ? (
@@ -72,20 +72,20 @@ export default function CurrencySelectPanel({
                       </div>
                     )}
                   </div>
-                  {!disableCurrencySelect && currency && (
+                  {/* {!disableCurrencySelect && currency && (
                     <ChevronDownIcon
                       className={`${currency ? 'text-primary' : 'text-high-emphesis'} stroke-current`}
                       width={16}
                       height={16}
                     />
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      {!disableCurrencySelect && onCurrencySelect && (
+      {/* {!disableCurrencySelect && onCurrencySelect && (
         <CurrencySearchModal
           isOpen={modalOpen}
           onDismiss={handleDismissSearch}
@@ -94,7 +94,7 @@ export default function CurrencySelectPanel({
           otherSelectedCurrency={otherCurrency}
           showCommonBases={showCommonBases}
         />
-      )}
+      )} */}
     </div>
   )
 }

@@ -3,4 +3,8 @@
     --text-primary: #BFBFBF;
     --font-sans: "DM Sans", -apple-system, system-ui, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', sans-serif;
     --scrollbar-width: 14px;
+
+    --tw-gradient-from: #FF0000;
+    --tw-gradient-to: #731A0B;
+    
 }

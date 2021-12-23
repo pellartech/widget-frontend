@@ -20,16 +20,11 @@ export default function CommonBases({
   onSelect: (currency: Currency) => void
 }) {
   const bases = typeof chainId !== 'undefined' ? COMMON_BASES[chainId] ?? [] : []
-
   return (
     <div className="flex flex-col space-y-2">
-      <div className="flex flex-row">
-        Common bases
-        <QuestionHelper text="These tokens are commonly paired with other tokens." />
-      </div>
       <div className="flex flex-wrap">
         {bases.map((currency: Currency) => {
-          if(currency.chainId === chainId) {
+          if (currency.chainId === chainId) {
             const isSelected = selectedCurrency?.equals(currency)
             return (
               <Button
@@ -47,7 +42,6 @@ export default function CommonBases({
               </Button>
             )
           }
-
         })}
       </div>
     </div>

@@ -16,6 +16,22 @@
   box-sizing: inherit;
 }
 
+/* @font-face {
+	font-family: 'Another Danger - Demo';
+	src: url('./fonts/Danger/Another Danger - Demo.otf');
+	src: local('☺'), url('./fonts/Danger/Another Danger - Demo.otf');
+	font-weight: 500;
+	font-style: normal;
+} */
+
+@font-face {
+	font-family: 'Bicyclette';
+	src: url('./fonts/Bicyclette/Bicyclette-Regular.ttf');
+	src: local('☺'), url('./fonts/Bicyclette/Bicyclette-Regular.ttf');
+	font-weight: 500;
+	font-style: normal;
+}
+
 html {
   height: 100%;
   box-sizing: border-box;
@@ -28,12 +44,12 @@ html {
 
 html,
 body {
-  font-family: var(--font-sans);
+  font-family: 'Bicyclette';
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--primary);
-  color: var(--text-primary);
+  background-color: black;
+  color: white;
 }
 
 body {
@@ -61,6 +77,10 @@ input:focus {
   background: repeating-linear-gradient(45deg, #161522, #161522 10px, #3B566E 10px, #3B566E 20px);
 }
 
+.main-body {
+  background-color: #731A0B;
+}
+
 /* *::-webkit-scrollbar {
   width: var(--scrollbar-width);
 }
@@ -79,3 +99,43 @@ input:focus {
   border-radius: 9999px;
   background-color: #BFBFBF;
 } */
+body {
+  background-image: url("http://redvillage-web-stage.s3-website-ap-southeast-1.amazonaws.com/img/frst-gen.svg");
+}
+.primary-text {
+  color: white;
+}
+.text-red {
+  color: red;
+}
+.network {
+  text-decoration: underline;
+}
+
+
+.item-header {
+  justify-content: center;
+}
+.header-item {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+
+
+.main-label {
+  color: rgb(243, 145, 128);
+}
+.bridge-button {
+  background-color: rgb(92, 21, 9);
+}
+.header-components {
+  background-color: rgb(92, 21, 9);
+}
+.gradient-border {
+  background-image: linear-gradient(rgb(92, 21, 9), #290a04);
+}
+
+
+
+

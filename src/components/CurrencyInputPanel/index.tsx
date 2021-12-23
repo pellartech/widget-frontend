@@ -69,11 +69,11 @@ export default function CurrencyInputPanel({
   }, [setModalOpen])
 
   return (
-    <div id={id} className={classNames(hideInput ? 'p-4' : 'p-5', 'rounded bg-dark-800')}>
+    <div id={id} className={classNames(hideInput ? 'p-4' : 'p-5', 'rounded bg-dark-900')}>
       <div className="flex flex-col justify-between space-y-3 sm:space-y-0 sm:flex-row">
         <div className={classNames('w-full sm:w-2/5')}>
           <button
-            type="button"
+            // type="button"
             className={classNames(
               !!currency ? 'text-primary' : 'text-high-emphesis',
               'open-currency-select-button h-full outline-none select-none cursor-pointer border-none text-xl font-medium items-center'
@@ -111,7 +111,7 @@ export default function CurrencyInputPanel({
                 <div className="flex flex-1 flex-col items-start justify-center mx-3.5">
                   {label && <div className="text-xs font-medium text-secondary whitespace-nowrap">{label}</div>}
                   <div className="flex items-center">
-                    <div className="text-lg font-bold token-symbol-container md:text-2xl">
+                    <div className="text-lg token-symbol-container md:text-2xl">
                       {(currency && currency.symbol && currency.symbol.length > 20
                         ? currency.symbol.slice(0, 4) +
                           '...' +
@@ -123,9 +123,9 @@ export default function CurrencyInputPanel({
                       )}
                     </div>
 
-                    {!disableCurrencySelect && currency && (
+                    {/* {!disableCurrencySelect && currency && (
                       <ChevronDownIcon width={16} height={16} className="ml-2 stroke-current" />
-                    )}
+                    )} */}
                   </div>
                 </div>
               )}
@@ -135,7 +135,7 @@ export default function CurrencyInputPanel({
         {!hideInput && (
           <div
             className={classNames(
-              'flex items-center w-full space-x-3 rounded bg-dark-900 focus:bg-dark-700 p-3 sm:w-3/5'
+              'flex items-center w-full space-x-3 rounded bg-dark-1000 focus:bg-dark-700 p-3 sm:w-3/5'
               // showMaxButton && selectedCurrencyBalance && 'px-3'
             )}
           >

@@ -42,7 +42,12 @@ const SOCK = (
 // eslint-disable-next-line react/prop-types
 function StatusIcon({ connector }: { connector: AbstractConnector }) {
   if (connector === injected) {
-    return <Image src="/chef.svg" alt="Injected (MetaMask etc...)" width={20} height={20} />
+    // return <Image src="/chef.svg" alt="Injected (MetaMask etc...)" width={20} height={20} />
+    return (
+      <IconWrapper size={16}>
+        <i className="fal fa-user"></i>
+      </IconWrapper>
+    )
     // return <Identicon />
   } else if (connector.constructor.name === 'WalletConnectConnector') {
     return (
@@ -100,7 +105,7 @@ function Web3StatusInner() {
       <div>
         <div
           id="web3-status-connected"
-          className="flex items-center px-3 py-2 text-sm rounded-lg bg-dark-1000 text-secondary"
+          className="flex items-center px-3 py-2 text-sm rounded-lg bg-dark-1000 primary-text"
           onClick={toggleWalletModal}
         >
           {hasPendingTransactions ? (
@@ -111,7 +116,7 @@ function Web3StatusInner() {
               <Loader stroke="white" />
             </div>
           ) : (
-            <div className="mr-2">{ENSName || shortenAddress(account)}</div>
+            <div className="mr-2 text-secondary">{ENSName || shortenAddress(account)}</div>
           )}
           {!hasPendingTransactions && connector && <StatusIcon connector={connector} />}
         </div>
