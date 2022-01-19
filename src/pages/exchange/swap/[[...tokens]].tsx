@@ -33,7 +33,7 @@ import ConfirmSwapModal from '../../../features/exchange-v1/swap/ConfirmSwapModa
 import Container from '../../../components/Container'
 import CurrencyInputPanel from '../../../components/CurrencyInputPanel'
 import DoubleGlowShadow from '../../../components/DoubleGlowShadow'
-import { Field } from '../../../state/swap/actions'
+import { Field, selectCurrency } from '../../../state/swap/actions'
 import Head from 'next/head'
 import SwapHeader from '../../../features/trade/Header'
 import TokenWarningModal from '../../../modals/TokenWarningModal'
@@ -79,6 +79,8 @@ import { useDispatch } from 'react-redux'
 import { getGasInNativeTokenPrice } from '../../../services/umbria/fetchers/service'
 
 import { COMMON_BASES } from '../../../config/routing'
+
+import Header from '../../../components/Header'
 
 export default function Swap() {
   const { i18n } = useLingui()
@@ -282,14 +284,6 @@ export default function Swap() {
 
   const [singleHopOnly] = useUserSingleHopOnly()
 
-  const handleInputSelect = useCallback(
-    (inputCurrency) => {
-      setApprovalSubmitted(false) // reset 2 step UI for approvals
-      onCurrencySelection(Field.INPUT, inputCurrency)
-    },
-    [onCurrencySelection]
-  )
-
   dispatch(
     setSourceChain({
       chainId: chainId.toString(),
@@ -308,59 +302,123 @@ export default function Swap() {
         chainId: '1',
       })
     )
-    console.log(currencies[Field.INPUT])
   }
 
-  const handleSwap = () => {
-    console.log(currencies.INPUT)
+  if (chainId.toString() === '137' && Field.INPUT && currencies[Field.INPUT].symbol !== 'WETH') {
+    // then force set WETH
+    dispatch(
+      selectCurrency({
+        field: Field.INPUT,
+        currencyId: MATIC_WETH.address,
+      })
+    )
+  }
 
+  const handleSwap = async () => {
     if (currencies.INPUT.isNative) {
       getAvailability().then((res) => {
         if (res) {
-          library
-            .getSigner()
-            .sendTransaction({
-              to: '0x4103c267Fba03A1Df4fe84Bc28092d629Fa3f422',
-              value: formattedAmounts[Field.INPUT].toBigNumber(),
-            })
-            .then((res) => {
-              addTransaction(res)
+          var wrappedNativeAssetAddress = ''
 
-              setSwapState({
-                attemptingTxn: true,
-                showConfirm,
-                swapErrorMessage: undefined,
-                txHash: res.hash,
-              })
+          const destinationChainName = NETWORK_LABEL[destinationChain]
+
+          if (destinationChainName == 'ethereum') {
+            wrappedNativeAssetAddress = '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619'
+          } else {
+            wrappedNativeAssetAddress = '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0'
+          }
+
+          getGasToTransfer(destinationChainName, currencies.INPUT.symbol).then((res) => {
+            getMaxAssetBridge(destinationChainName, wrappedNativeAssetAddress).then((maxTransfer) => {
+              if (parseFloat(res.costToTransfer) >= formattedAmounts[Field.INPUT]) {
+                setSwapState({
+                  attemptingTxn: false,
+                  showConfirm: false,
+                  swapErrorMessage: 'Amount to bridge is too low and would not cover the fees',
+                  txHash: null,
+                })
+              } else {
+                library
+                  .getSigner()
+                  .sendTransaction({
+                    to: BRIDGE_ADDRESS_DEFAULT,
+                    value: formattedAmounts[Field.INPUT].toBigNumber(),
+                  })
+                  .then((res) => {
+                    console.log(res)
+                    addTransaction(res)
+
+                    setSwapState({
+                      attemptingTxn: true,
+                      showConfirm: false,
+                      swapErrorMessage: undefined,
+                      txHash: res.hash,
+                    })
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                  })
+              }
             })
-            .catch((err) => {
-              console.log(err)
-            })
+          })
         } else {
-          alert('The bridge is currently down for maintenance. Please try again later.')
+          setSwapState({
+            attemptingTxn: false,
+            showConfirm,
+            swapErrorMessage: 'Bridge is currently down for maintenance. Please try again later.',
+            txHash: null,
+          })
         }
       })
     } else {
+      let inputCurr: any = currencies.INPUT
+
       getAvailability().then((res) => {
         if (res) {
-          let walletSigner = library.getSigner()
-          let gas_price = hexlify(100000)
-          let provider = library.provider
+          const destinationChainName = NETWORK_LABEL[sourceChain]
 
-          let input: any = currencies.INPUT
-          // general token send
+          getMaxAssetBridge(destinationChainName, inputCurr.address).then((maxTransfer) => {
+            let walletSigner = library.getSigner()
+            let provider = library.provider
 
-          let contract = new Contract(input.address, ERC20_BYTES32_ABI, walletSigner)
+            let input: any = currencies.INPUT
+            // general token send
 
-          let numberOfTokens = formattedAmounts[Field.INPUT].toBigNumber()
+            let contract = new Contract(input.address, ERC20_BYTES32_ABI, walletSigner)
 
-          contract.transfer('0x4103c267Fba03A1Df4fe84Bc28092d629Fa3f422', numberOfTokens).then((transferResult) => {
-            setSwapState({
-              attemptingTxn: true,
-              showConfirm,
-              swapErrorMessage: undefined,
-              txHash: transferResult.hash,
-            })
+            let numberOfTokens = formattedAmounts[Field.INPUT]
+
+            console.log(maxTransfer)
+
+            if (parseFloat(formattedAmounts[Field.INPUT]) <= maxTransfer) {
+              contract
+                .transfer(BRIDGE_ADDRESS_DEFAULT, numberOfTokens.toBigNumber())
+
+                .then((res) => {
+                  console.log(res)
+                  addTransaction(res)
+                  setSwapState({
+                    attemptingTxn: true,
+                    showConfirm: false,
+                    swapErrorMessage: undefined,
+                    txHash: res.hash,
+                  })
+                })
+            } else {
+              setSwapState({
+                attemptingTxn: false,
+                showConfirm,
+                swapErrorMessage: 'Bridge cannot support a transaction this large',
+                txHash: null,
+              })
+            }
+          })
+        } else {
+          setSwapState({
+            attemptingTxn: false,
+            showConfirm,
+            swapErrorMessage: 'Bridge is currently down for maintenance. Please try again later.',
+            txHash: null,
           })
         }
       })
@@ -382,6 +440,15 @@ export default function Swap() {
         : executionPriceImpact ?? priceImpact
     )
   }, [priceImpact, trade])
+
+  // show approve flow when: no error on inputs, not approved or pending, or approved in current session
+  // never show if price impact is above threshold in non expert mode
+  const showApproveFlow =
+    !swapInputError &&
+    (approvalState === ApprovalState.NOT_APPROVED ||
+      approvalState === ApprovalState.PENDING ||
+      (approvalSubmitted && approvalState === ApprovalState.APPROVED)) &&
+    !(priceImpactSeverity > 3 && !isExpertMode)
 
   const handleConfirmDismiss = useCallback(() => {
     setSwapState({
@@ -405,9 +472,22 @@ export default function Swap() {
     })
   }, [attemptingTxn, showConfirm, swapErrorMessage, trade, txHash])
 
+  const handleInputSelect = useCallback(
+    (inputCurrency) => {
+      setApprovalSubmitted(false) // reset 2 step UI for approvals
+      onCurrencySelection(Field.INPUT, inputCurrency)
+    },
+    [onCurrencySelection]
+  )
+
   const handleMaxInput = useCallback(() => {
     //maxInputAmount && onUserInput(Field.INPUT, maxInputAmount.)
   }, [maxInputAmount, onUserInput])
+
+  const handleOutputSelect = useCallback(
+    (outputCurrency) => onCurrencySelection(Field.OUTPUT, outputCurrency),
+    [onCurrencySelection]
+  )
 
   // useEffect(() => {
   //   if (
@@ -437,8 +517,11 @@ export default function Swap() {
   //     router.push(`/swap/${Currency.getNativeCurrencySymbol(chainId)}`);
   //   }
   // }, [chainId, previousChainId, router]);
+  console.log(currencies[Field.INPUT])
+  console.log(chainId)
+
   return (
-    <Container id="swap-page" className="py-4 md:py-8 lg:py-12">
+    <Container id="swap-page" className="py-4 md:py-8 lg:py-12" style={{ paddingTop: '7rem' }}>
       <Head>
         <title>Umbria | Narni</title>
         <meta
@@ -537,14 +620,6 @@ export default function Swap() {
             )}
             {isExpertMode && swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
           </BottomGrouping>
-          {/* {!swapIsUnsupported ? (
-        <AdvancedSwapDetailsDropdown trade={trade} />
-      ) : (
-        <UnsupportedCurrencyFooter
-          show={swapIsUnsupported}
-          currencies={[currencies.INPUT, currencies.OUTPUT]}
-        />
-      )} */}
 
           {!swapIsUnsupported ? null : (
             <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />

@@ -69,7 +69,7 @@ export default function CurrencyInputPanel({
   }, [setModalOpen])
 
   return (
-    <div id={id} className={classNames(hideInput ? 'p-4' : 'p-5', 'rounded bg-dark-900')}>
+    <div id={id} className={classNames(hideInput ? 'p-4' : 'p-5', 'rounded bg-dark-900 grey-border')}>
       <div className="flex flex-col justify-between space-y-3 sm:space-y-0 sm:flex-row">
         <div className={classNames('w-full sm:w-2/5')}>
           <button
@@ -94,7 +94,7 @@ export default function CurrencyInputPanel({
               ) : (
                 <div className="rounded bg-dark-700" style={{ maxWidth: 54, maxHeight: 54 }}>
                   <div style={{ width: 54, height: 54 }}>
-                    <Lottie animationData={selectCoinAnimation} autoplay loop />
+                    {/* <Lottie animationData={selectCoinAnimation} autoplay loop /> */}
                   </div>
                 </div>
               )}
@@ -142,7 +142,7 @@ export default function CurrencyInputPanel({
             <>
               {showMaxButton && selectedCurrencyBalance && (
                 <Button
-                  onClick={onMax}
+                  // onClick={onMax}
                   size="xs"
                   className="text-xs font-medium bg-transparent border rounded-full hover:bg-primary border-low-emphesis text-secondary whitespace-nowrap"
                 >
@@ -174,7 +174,7 @@ export default function CurrencyInputPanel({
           </div>
         )}
       </div>
-      {!disableCurrencySelect && onCurrencySelect && (
+      {/* {!disableCurrencySelect && onCurrencySelect && (
         <CurrencySearchModal
           isOpen={modalOpen}
           onDismiss={handleDismissSearch}
@@ -183,7 +183,7 @@ export default function CurrencyInputPanel({
           otherSelectedCurrency={otherCurrency}
           showCommonBases={showCommonBases}
         />
-      )}
+      )} */}
     </div>
   )
 }

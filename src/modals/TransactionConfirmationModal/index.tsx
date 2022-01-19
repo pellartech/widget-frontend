@@ -34,9 +34,7 @@ export const ConfirmationPendingContent: FC<ConfirmationPendingContentProps> = (
       <div className="flex justify-end">
         <CloseIcon onClick={onDismiss} />
       </div>
-      <div className="w-24 pb-4 m-auto">
-        <Lottie animationData={loadingRollingCircle} autoplay loop />
-      </div>
+      <div className="w-24 pb-4 m-auto">{/* <Lottie animationData={loadingRollingCircle} autoplay loop /> */}</div>
       <div className="flex flex-col items-center justify-center gap-3">
         <div className="text-xl font-bold text-high-emphesis">{`Waiting for Confirmation`}</div>
         <div className="font-bold">{pendingText}</div>

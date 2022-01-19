@@ -63,6 +63,14 @@ export function useSwapActionHandlers(): {
   const dispatch = useAppDispatch()
   const onCurrencySelection = useCallback(
     (field: Field, currency: Currency) => {
+      console.log(
+        'field og swap: ',
+        field,
+        'currency: ',
+        currency,
+        'output: ',
+        currency.isToken ? currency.address : currency.isNative && currency.chainId !== ChainId.CELO ? 'ETH' : ''
+      )
       dispatch(
         selectCurrency({
           field,

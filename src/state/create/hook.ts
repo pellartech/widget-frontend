@@ -22,6 +22,7 @@ export function useCreateActionHandlers(): {
   const dispatch = useAppDispatch()
   const onCurrencySelection = useCallback(
     (field: Field, currency: Currency) => {
+      console.log('field swap: ', field, 'currency: ', currency)
       dispatch(
         selectCurrency({
           field,

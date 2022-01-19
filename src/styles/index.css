@@ -132,6 +132,9 @@ body {
 .header-components {
   background-color: rgb(92, 21, 9);
 }
+.grey-border {
+  border: 3px solid #222222;
+}
 .gradient-border {
   background-image: linear-gradient(rgb(92, 21, 9), #290a04);
 }

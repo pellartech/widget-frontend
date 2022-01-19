@@ -32,7 +32,7 @@ function AppBar(): JSX.Element {
                   <div className="flex items-center w-full space-x-2 item-header">
                     {library && library.provider.isMetaMask && <div className="hidden sm:inline-block"></div>}
 
-                    <div className="w-auto flex items-center rounded bg-dark-900 p-0.5 whitespace-nowrap header-components">
+                    <div className="w-auto flex items-center rounded bg-dark-900 p-0.5 whitespace-nowrap">
                       {account && chainId && userEthBalance && (
                         <>
                           <div className="px-3 py-2 primary-text">
@@ -42,29 +42,6 @@ function AppBar(): JSX.Element {
                       )}
 
                       <Web3Status />
-                    </div>
-                    <div className="w-auto flex items-center rounded bg-dark-900 hover:bg-dark-800 p-0.5 whitespace-nowrap header-components">
-                      <div className="px-3 py-2 text-primary">
-                        <span>
-                          <a
-                            className="primary-text"
-                            href="https://discord.umbria.network"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            Discord / Support
-                          </a>
-                        </span>
-                      </div>
-                    </div>
-                    <div className="w-auto flex items-center rounded bg-dark-900 hover:bg-dark-800 p-0.5 whitespace-nowrap header-components">
-                      <div className="px-3 py-2 text-primary">
-                        <span>
-                          <a className="primary-text" href="https://bridge.umbria.network/docs/docs-page.html">
-                            Docs
-                          </a>
-                        </span>
-                      </div>
                     </div>
                     <More />
                   </div>

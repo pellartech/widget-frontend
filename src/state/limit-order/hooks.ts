@@ -26,6 +26,7 @@ export function useLimitOrderActionHandlers(): {
   const dispatch = useDispatch<AppDispatch>()
   const onCurrencySelection = useCallback(
     (field: Field, currency: Currency) => {
+      console.log('field limit: ', field, 'currency: ', currency)
       dispatch(
         selectCurrency({
           field,
