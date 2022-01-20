@@ -139,6 +139,20 @@ body {
   background-image: linear-gradient(rgb(92, 21, 9), #290a04);
 }
 
+.red {
+  background-color: red;
+}
 
+.network-popup {
+    position: absolute;
+    right: 0;
+    white-space: pre-line;
+    margin-top: 3rem;
+    padding: 1rem;
+    border: 3px solid #222222;
+}
+.Toastify__close-button {
+  display: none;
+}
 
 

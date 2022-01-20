@@ -80,14 +80,16 @@ function Web3Network(): JSX.Element | null {
       <div>
         <div
           className="grid grid-flow-col px-3 py-2 space-x-2 text-sm rounded-lg pointer-events-auto auto-cols-max bg-dark-1000 text-primary grey-border"
-          onClick={() => toggleSourceModal()}
+          onClick={() => [137, 1].includes(Number(sourceChain)) && toggleSourceModal()}
         >
-          <div>
-            <span className="text-primary">
-              Bridging from {NETWORK_LABEL[sourceChain]} to {NETWORK_LABEL[destinationChain]}
+          <div style={{textAlign: 'center'}}>
+            <span className="text-primary" style={{whiteSpace: 'pre-line'}}>
+              {[137, 1].includes(Number(sourceChain)) 
+                ? `Bridging from ${NETWORK_LABEL[sourceChain]} to ${NETWORK_LABEL[destinationChain]}` 
+                : 'Please connect to Polygon Mainnet or Ethereum Mainnet'}
             </span>
           </div>
-          <div>
+          <div style={{display: [137, 1].includes(Number(sourceChain)) ? 'initial' : 'none'}}>
             <ChevronDownIcon width={16} height={16} className="ml-2 stroke-current" />
           </div>
         </div>
@@ -106,25 +108,18 @@ function Web3Network(): JSX.Element | null {
                       <div className="w-auto flex items-center rounded bg-dark-900 p-0.5 whitespace-nowrap grey-border">
                         {account && chainId && userEthBalance && (
                           <>
-                            <div className="px-3 py-2 primary-text">
+                            <div className="px-3 py-2 text-primary">
                               {chainId === 137
                                 ? `${userWethBalance?.toSignificant(4)} WETH`
-                                : `${userEthBalance?.toSignificant(4)} ETH`}
+                                : `${userEthBalance?.toSignificant(4)} ${NATIVE[chainId].symbol}`}
                               {/* {userEthBalance?.toSignificant(4)} {chainId === 137 ? 'WETH' : NATIVE[chainId].symbol} */}
                             </div>
                           </>
                         )}
-
                         <Web3Status />
                       </div>
                       <More />
                     </div>
-                  </div>
-                  <div className="flex -mr-2 sm:hidden">
-                    {/* Mobile menu button */}
-                    <Popover.Button className="inline-flex items-center justify-center p-2 rounded-md text-primary hover:text-high-emphesis focus:outline-none">
-                      <span className="sr-only">{`Open main menu`}</span>
-                    </Popover.Button>
                   </div>
                 </div>
               </div>

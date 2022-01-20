@@ -6,7 +6,7 @@ import { XIcon } from '@heroicons/react/outline'
 import { useRemovePopup } from '../../state/application/hooks'
 
 const AnimatedFader = ({ duration }) => (
-  <div className="h-[3px] bg-dark-800 w-full">
+  <div className="h-[3px] bg-dark-900 w-full">
     <style jsx>{`
       .animation {
         animation-duration: ${duration}ms;
@@ -24,7 +24,7 @@ const AnimatedFader = ({ duration }) => (
         }
       }
     `}</style>
-    <div className="animation h-[3px] bg-gradient-to-r from-blue to-pink" />
+    <div className="animation h-[3px] bg-gradient-to-r red" />
   </div>
 )
 
@@ -61,7 +61,7 @@ export default function PopupItem({
 
   return (
     <div className="mb-4">
-      <div className="relative w-full overflow-hidden rounded bg-dark-700">
+      <div className="relative w-full overflow-hidden rounded bg-dark-900">
         <div className="flex flex-row p-4">
           {popupContent}
           <div className="cursor-pointer hover:text-white">

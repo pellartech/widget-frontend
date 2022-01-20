@@ -45,7 +45,7 @@ function StatusIcon({ connector }: { connector: AbstractConnector }) {
     // return <Image src="/chef.svg" alt="Injected (MetaMask etc...)" width={20} height={20} />
     return (
       <IconWrapper size={16}>
-        <i className="fal fa-user"></i>
+        <i className="fal fa-user text-primary"></i>
       </IconWrapper>
     )
     // return <Identicon />

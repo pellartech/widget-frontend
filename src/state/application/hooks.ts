@@ -68,6 +68,7 @@ export function useCloseModals(): () => void {
 }
 
 export function useWalletModalToggle(): () => void {
+  console.log('here')
   return useToggleModal(ApplicationModal.WALLET)
 }
 

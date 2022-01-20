@@ -77,10 +77,13 @@ import { hexlify } from '@ethersproject/bytes'
 import cookie from 'cookie-cutter'
 import { useDispatch } from 'react-redux'
 import { getGasInNativeTokenPrice } from '../../../services/umbria/fetchers/service'
-
 import { COMMON_BASES } from '../../../config/routing'
 
-import Header from '../../../components/Header'
+// toast
+import ConnectButton from '../../../components/ConnectButton'
+
+
+
 
 export default function Swap() {
   const { i18n } = useLingui()
@@ -90,6 +93,8 @@ export default function Swap() {
   const destinationChain = useDestinationChain()
   const sourceChain = useSourceChain()
   const MATIC_WETH = COMMON_BASES[137][0]
+  
+
 
   // token warning stuff
   const [loadedInputCurrency, loadedOutputCurrency] = [
@@ -289,20 +294,22 @@ export default function Swap() {
       chainId: chainId.toString(),
     })
   )
+  
+  // check if correct chain first 
 
   if (chainId.toString() == '1') {
-    dispatch(
-      setDestinationChain({
-        chainId: '137',
-      })
-    )
+      dispatch(
+        setDestinationChain({
+          chainId: '137',
+        })
+      )
   } else {
     dispatch(
       setDestinationChain({
         chainId: '1',
       })
     )
-  }
+  } 
 
   if (chainId.toString() === '137' && Field.INPUT && currencies[Field.INPUT].symbol !== 'WETH') {
     // then force set WETH
@@ -313,6 +320,20 @@ export default function Swap() {
       })
     )
   }
+
+  // if (chainId.toString() == '4') {
+  //   dispatch(
+  //     setDestinationChain({
+  //       chainId: '80001',
+  //     })
+  //   )
+  // } else {
+  //   dispatch(
+  //     setDestinationChain({
+  //       chainId: '4',
+  //     })
+  //   )
+  // }
 
   const handleSwap = async () => {
     if (currencies.INPUT.isNative) {
@@ -521,111 +542,130 @@ export default function Swap() {
   console.log(chainId)
 
   return (
-    <Container id="swap-page" className="py-4 md:py-8 lg:py-12" style={{ paddingTop: '7rem' }}>
-      <Head>
-        <title>Umbria | Narni</title>
-        <meta
-          key="description"
-          name="description"
-          content="SushiSwap allows for swapping of ERC20 compatible tokens across multiple networks"
+    <>
+      
+      <Container id="swap-page" className="py-4 md:py-8 lg:py-12" style={{ paddingTop: '7rem' }}>
+        <Head>
+          <title>Umbria | Narni</title>
+          <meta
+            key="description"
+            name="description"
+            content="SushiSwap allows for swapping of ERC20 compatible tokens across multiple networks"
+          />
+        </Head>
+
+        <TokenWarningModal
+          isOpen={importTokensNotInDefault.length > 0 && !dismissTokenWarning}
+          tokens={importTokensNotInDefault}
+          onConfirm={handleConfirmTokenWarning}
         />
-      </Head>
-      <TokenWarningModal
-        isOpen={importTokensNotInDefault.length > 0 && !dismissTokenWarning}
-        tokens={importTokensNotInDefault}
-        onConfirm={handleConfirmTokenWarning}
-      />
-      <DoubleGlowShadow>
-        <div className="p-4 space-y-4 rounded z-1">
-          <SwapHeader
-            input={currencies[Field.INPUT]}
-            output={currencies[Field.OUTPUT]}
-            allowedSlippage={allowedSlippage}
-          />
-
-          <ConfirmSwapModal
-            isOpen={showConfirm}
-            trade={trade}
-            originalTrade={null}
-            onAcceptChanges={handleAcceptChanges}
-            attemptingTxn={attemptingTxn}
-            txHash={txHash}
-            recipient={recipient}
-            allowedSlippage={allowedSlippage}
-            onConfirm={handleSwap}
-            swapErrorMessage={swapErrorMessage}
-            onDismiss={handleConfirmDismiss}
-            minerBribe={doArcher ? archerETHTip : undefined}
-          />
-
-          <div>
-            <Web3Network />
-          </div>
-
-          <div>
-            <CurrencyInputPanel
-              // priceImpact={priceImpact}
-              label={independentField === Field.OUTPUT && !showWrap ? i18n._(t`Swap From (est.):`) : i18n._(t`Asset:`)}
-              value={formattedAmounts[Field.INPUT]}
-              showMaxButton={showMaxButton}
-              currency={currencies[Field.INPUT]}
-              onUserInput={handleTypeInput}
-              onMax={handleMaxInput}
-              fiatValue={fiatValueInput ?? undefined}
-              onCurrencySelect={handleInputSelect}
-              otherCurrency={currencies[Field.OUTPUT]}
-              showCommonBases={true}
-              id="swap-currency-input"
+        
+        <DoubleGlowShadow>
+          {/* <div>
+            <ToastContainer
+              position={toast.POSITION.TOP_RIGHT}
+              autoClose={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              icon={false}
+              transition={Slide}
+              draggable={false}
+              className={'bg-dark-800 rounded network-popup text-primary'}
+            />
+          </div> */}
+          <div className="p-4 space-y-4 rounded z-1">
+            <SwapHeader
+              input={currencies[Field.INPUT]}
+              output={currencies[Field.OUTPUT]}
+              allowedSlippage={allowedSlippage}
             />
 
-            <div className="p-3 rounded sm:inline"></div>
-          </div>
+            <ConfirmSwapModal
+              isOpen={showConfirm}
+              trade={trade}
+              originalTrade={null}
+              onAcceptChanges={handleAcceptChanges}
+              attemptingTxn={attemptingTxn}
+              txHash={txHash}
+              recipient={recipient}
+              allowedSlippage={allowedSlippage}
+              onConfirm={handleSwap}
+              swapErrorMessage={swapErrorMessage}
+              onDismiss={handleConfirmDismiss}
+              minerBribe={doArcher ? archerETHTip : undefined}
+            />
 
-          <BottomGrouping>
-            {swapIsUnsupported ? (
-              <Button color="red" size="lg" disabled>
-                {i18n._(t`Unsupported Asset`)}
-              </Button>
-            ) : !account ? (
-              <Web3Connect size="lg" color="gray" className="w-full" />
-            ) : showWrap ? (
-              <Button color="gradient" size="lg" disabled={Boolean(wrapInputError)} onClick={onWrap}>
-                {wrapInputError ??
-                  (wrapType === WrapType.WRAP
-                    ? i18n._(t`Wrap`)
-                    : wrapType === WrapType.UNWRAP
-                    ? i18n._(t`Unwrap`)
-                    : null)}
-              </Button>
-            ) : (
-              <ButtonError
-                onClick={() => {
-                  if (isExpertMode) {
-                    handleSwap()
-                  } else {
-                    setSwapState({
-                      attemptingTxn: false,
-                      swapErrorMessage: undefined,
-                      showConfirm: true,
-                      txHash: undefined,
-                    })
-                  }
-                }}
-                id="swap-button"
-                disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError}
-                error={isValid && priceImpactSeverity > 2 && !swapCallbackError}
-              >
-                {swapInputError ? i18n._(t`Bridge`) : i18n._(t`Bridge`)}
-              </ButtonError>
+            <div>
+              <Web3Network />
+            </div>
+            
+            <div>
+              <CurrencyInputPanel
+                // priceImpact={priceImpact}
+                label={independentField === Field.OUTPUT && !showWrap ? i18n._(t`Swap From (est.):`) : i18n._(t`Asset:`)}
+                value={formattedAmounts[Field.INPUT]}
+                showMaxButton={showMaxButton}
+                currency={currencies[Field.INPUT]}
+                onUserInput={handleTypeInput}
+                onMax={handleMaxInput}
+                fiatValue={fiatValueInput ?? undefined}
+                onCurrencySelect={handleInputSelect}
+                otherCurrency={currencies[Field.OUTPUT]}
+                showCommonBases={true}
+                id="swap-currency-input"
+              />
+
+              <div className="p-3 rounded sm:inline"></div>
+            </div>
+
+
+            <BottomGrouping>
+              {swapIsUnsupported ? (
+                <Button color="red" size="lg" disabled>
+                  {i18n._(t`Unsupported Asset`)}
+                </Button>
+              ) : !account ? (
+                <ConnectButton/>
+              ) : showWrap ? (
+                <Button color="gradient" size="lg" disabled={Boolean(wrapInputError)} onClick={onWrap}>
+                  {wrapInputError ??
+                    (wrapType === WrapType.WRAP
+                      ? i18n._(t`Wrap`)
+                      : wrapType === WrapType.UNWRAP
+                      ? i18n._(t`Unwrap`)
+                      : null)}
+                </Button>
+              ) : (
+                <ButtonError
+                  onClick={() => {
+                    if (isExpertMode) {
+                      handleSwap()
+                    } else {
+                      setSwapState({
+                        attemptingTxn: false,
+                        swapErrorMessage: undefined,
+                        showConfirm: true,
+                        txHash: undefined,
+                      })
+                    }
+                  }}
+                  id="swap-button"
+                  disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError || ![137, 1].includes(chainId)}
+                  error={isValid && priceImpactSeverity > 2 && !swapCallbackError}
+                >
+                  {swapInputError ? i18n._(t`Bridge`) : i18n._(t`Bridge`)}
+                </ButtonError>
+              )}
+              {isExpertMode && swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
+            </BottomGrouping>
+
+            {!swapIsUnsupported ? null : (
+              <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
             )}
-            {isExpertMode && swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
-          </BottomGrouping>
-
-          {!swapIsUnsupported ? null : (
-            <UnsupportedCurrencyFooter show={swapIsUnsupported} currencies={[currencies.INPUT, currencies.OUTPUT]} />
-          )}
-        </div>
-      </DoubleGlowShadow>
-    </Container>
+          </div>
+        </DoubleGlowShadow>
+      </Container>
+    </>
   )
 }

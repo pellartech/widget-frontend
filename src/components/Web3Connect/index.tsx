@@ -10,12 +10,12 @@ import { useWalletModalToggle } from '../../state/application/hooks'
 export default function Web3Connect({ color = 'gray', size = 'sm', className = '', ...rest }: ButtonProps) {
   const { i18n } = useLingui()
   const toggleWalletModal = useWalletModalToggle()
-
+  console.log('connect', rest)
   const { error } = useWeb3React()
   return error ? (
     <div
       className="flex items-center justify-center px-4 py-2 font-semibold text-white border rounded bg-opacity-80 border-red bg-red hover:bg-opacity-100"
-      // onClick={toggleWalletModal}
+      onClick={toggleWalletModal}
     >
       <div className="mr-1">
         <Activity className="w-4 h-4" />
@@ -32,7 +32,8 @@ export default function Web3Connect({ color = 'gray', size = 'sm', className = '
       size={size}
       {...rest}
     >
-      {`Connect to a wallet`}
+      {`Click to connect your wallet`}
     </Button>
+    
   )
 }

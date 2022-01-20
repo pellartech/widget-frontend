@@ -129,7 +129,7 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/favicon.ico" />
 
           <link rel="manifest" href="/manifest.json" />
-          {/* <script src="https://kit.fontawesome.com/f19d80d00c.js" crossOrigin="anonymous" /> */}
+          <script src="https://kit.fontawesome.com/f19d80d00c.js" crossOrigin="anonymous" />
         </Head>
         <body>
           <Main />

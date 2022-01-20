@@ -117,7 +117,7 @@ export function ButtonError({
   disabled?: boolean
 } & ButtonProps) {
   if (error) {
-    return <Button color="red" size="lg" {...rest} />
+    return <Button color="gray"  disabled={true} size="lg" {...rest} />
   } else {
     return <Button color={disabled ? 'gray' : 'gradient'} disabled={disabled} size="lg" {...rest} />
   }
