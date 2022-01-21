@@ -40,6 +40,7 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: none;
 }
 
 html,
@@ -48,7 +49,6 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
   color: white;
 }
 
@@ -100,7 +100,7 @@ input:focus {
   background-color: #BFBFBF;
 } */
 body {
-  background-image: url("http://redvillage-web-stage.s3-website-ap-southeast-1.amazonaws.com/img/frst-gen.svg");
+  background: none;
 }
 .primary-text {
   color: white;
@@ -135,7 +135,7 @@ body {
 
 /* colours */
 .grey-border {
-  border: 3px solid #222222;
+  border: 3px solid rgb(36, 35, 33)
 }
 .gradient-border {
   background-image: linear-gradient(rgb(92, 21, 9), #290a04);
