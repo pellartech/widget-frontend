@@ -132,27 +132,25 @@ body {
 .header-components {
   background-color: rgb(92, 21, 9);
 }
+
+/* colours */
 .grey-border {
   border: 3px solid #222222;
 }
 .gradient-border {
   background-image: linear-gradient(rgb(92, 21, 9), #290a04);
 }
-
 .red {
   background-color: red;
 }
 
-.network-popup {
-    position: absolute;
-    right: 0;
-    white-space: pre-line;
-    margin-top: 3rem;
-    padding: 1rem;
-    border: 3px solid #222222;
+
+.bg-dark-900 {
+  background-color: rgb(22,21,34,1);
 }
-.Toastify__close-button {
-  display: none;
+.bg-dark-1000 {
+  background-color: rgb(13,4,21,1);
 }
+
 
 

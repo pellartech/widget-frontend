@@ -80,6 +80,7 @@ import { getGasInNativeTokenPrice } from '../../../services/umbria/fetchers/serv
 import { COMMON_BASES } from '../../../config/routing'
 
 // toast
+import Header from '../../../components/Header'
 import ConnectButton from '../../../components/ConnectButton'
 
 
@@ -289,28 +290,12 @@ export default function Swap() {
 
   const [singleHopOnly] = useUserSingleHopOnly()
 
+  
   dispatch(
     setSourceChain({
       chainId: chainId.toString(),
     })
   )
-  
-  // check if correct chain first 
-
-  if (chainId.toString() == '1') {
-      dispatch(
-        setDestinationChain({
-          chainId: '137',
-        })
-      )
-  } else {
-    dispatch(
-      setDestinationChain({
-        chainId: '1',
-      })
-    )
-  } 
-
   if (chainId.toString() === '137' && Field.INPUT && currencies[Field.INPUT].symbol !== 'WETH') {
     // then force set WETH
     dispatch(
@@ -320,6 +305,27 @@ export default function Swap() {
       })
     )
   }
+   // check if correct chain first 
+   if (chainId.toString() == '1') {
+    dispatch(
+      setDestinationChain({
+        chainId: '137',
+      })
+    )
+  } else {
+    dispatch(
+      setDestinationChain({
+        chainId: '1',
+      })
+    )
+  } 
+  
+ 
+
+  
+
+  
+  
 
   // if (chainId.toString() == '4') {
   //   dispatch(
@@ -342,7 +348,7 @@ export default function Swap() {
           var wrappedNativeAssetAddress = ''
 
           const destinationChainName = NETWORK_LABEL[destinationChain]
-
+          
           if (destinationChainName == 'ethereum') {
             wrappedNativeAssetAddress = '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619'
           } else {
@@ -627,6 +633,7 @@ export default function Swap() {
                 </Button>
               ) : !account ? (
                 <ConnectButton/>
+                // <Header/>
               ) : showWrap ? (
                 <Button color="gradient" size="lg" disabled={Boolean(wrapInputError)} onClick={onWrap}>
                   {wrapInputError ??

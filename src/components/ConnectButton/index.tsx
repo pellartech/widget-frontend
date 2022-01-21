@@ -18,7 +18,7 @@ import ReactGA from 'react-ga'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-import {SUPPORTED_WALLETS, injected} from '../../config/wallets.ts'
+import {SUPPORTED_WALLETS, injected} from '../../config/wallets'
 
 const WALLET_VIEWS = {
   OPTIONS: 'options',
@@ -37,12 +37,10 @@ export default function ConnectButton() {
 
     const METAMASK = SUPPORTED_WALLETS['METAMASK']
 
-    const [walletView, setWalletView] = useState(WALLET_VIEWS.ACCOUNT)
-    const [connecting, setConnecting] = useState(false)
-    const [pendingWallet, setPendingWallet] = useState()
-    const [pendingError, setPendingError] = useState()
+    const [connecting, setConnecting] = useState<boolean>(false)
+    const [pendingError, setPendingError] = useState<boolean>()
 
-    const tryActivation = async (connector) => {
+    const tryActivation = async (connector: (() => Promise<AbstractConnector>) | AbstractConnector | undefined) => {
         let name = ''
         let conn = typeof connector === 'function' ? await connector() : connector
 
@@ -53,14 +51,12 @@ export default function ConnectButton() {
             return true
         })
         // log selected wallet
-        ReactGA.event({
-            category: 'Wallet',
-            action: 'Change Wallet',
-            label: name,
-        })
-        setPendingWallet(conn) // set wallet for pending view
+        // ReactGA.event({
+        //     category: 'Wallet',
+        //     action: 'Change Wallet',
+        //     label: name,
+        // })
         setConnecting(true)
-        setWalletView(WALLET_VIEWS.PENDING)
 
         // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
         if (conn instanceof WalletConnectConnector && conn.walletConnectProvider?.wc?.uri) {
@@ -86,11 +82,6 @@ export default function ConnectButton() {
         )
     }
     return (
-        //     // <header className="flex flex-row justify-between w-screen flex-nowrap">
-        // <Web3Status />
-        // <div onClick={() => tryActivation(METAMASK.connector)}>
-        //     Test
-        // </div>
         <>
             <Button
                 id="connect-wallet"

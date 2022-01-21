@@ -62,11 +62,11 @@ function Web3Network(): JSX.Element | null {
     return null
   }
 
-  useEffect(() => {
-    if (!isExpertMode) {
-      dispatch(updateUserExpertMode({ userExpertMode: true }))
-    }
-  }, [dispatch, isExpertMode])
+  // useEffect(() => {
+  //   if (!isExpertMode) {
+  //     dispatch(updateUserExpertMode({ userExpertMode: true }))
+  //   }
+  // }, [dispatch, isExpertMode])
 
   function updateNetworks() {}
 
