@@ -79,7 +79,7 @@ function Web3Network(): JSX.Element | null {
     >
       <div>
         <div
-          className="grid grid-flow-col px-3 py-2 space-x-2 text-sm rounded-lg pointer-events-auto auto-cols-max bg-dark-1000 text-primary grey-border"
+          className="grid grid-flow-col px-3 py-2 space-x-2 text-sm rounded-lg pointer-events-auto auto-cols-max bg-dark-1000 text-primary"
           onClick={() => [137, 1].includes(Number(sourceChain)) && toggleSourceModal()}
         >
           <div style={{ textAlign: 'center' }}>
@@ -103,7 +103,7 @@ function Web3Network(): JSX.Element | null {
                 <div className="items-center justify-between">
                   <div className="flex items-center justify-center" style={{ marginRight: '-0.6rem' }}>
                     <div className="flex items-center w-full space-x-2 item-header">
-                      <div className="w-auto flex items-center rounded bg-dark-900 p-0.5 whitespace-nowrap grey-border">
+                      <div className="w-auto flex items-center rounded bg-dark-900 p-0.5 whitespace-nowrap">
                         {account && chainId && userEthBalance && (
                           <>
                             <div className="px-3 py-2 text-primary">

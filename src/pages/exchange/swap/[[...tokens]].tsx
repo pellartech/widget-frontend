@@ -536,7 +536,7 @@ export default function Swap() {
 
   return (
     <>
-      <Container id="swap-page" className="lg:py-12">
+      <Container id="swap-page" className="">
         <Head>
           <title>Umbria | Narni</title>
           <meta
