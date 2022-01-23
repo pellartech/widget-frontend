@@ -30,8 +30,6 @@ function AppBar(): JSX.Element {
               <div className="items-center justify-between">
                 <div className="flex items-center justify-center p-4">
                   <div className="flex items-center w-full space-x-2 item-header">
-                    {library && library.provider.isMetaMask && <div className="hidden sm:inline-block"></div>}
-
                     <div className="w-auto flex items-center rounded bg-dark-900 p-0.5 whitespace-nowrap">
                       {account && chainId && userEthBalance && (
                         <>

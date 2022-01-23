@@ -6,7 +6,7 @@ import Popups from '../../components/Popups'
 
 const Layout = ({ children, banner = undefined }) => {
   return (
-    <div className="z-0 flex flex-col items-center pb-16 lg:pb-0">
+    <div className="z-0 flex flex-col items-center pb-4 lg:pb-0 bg-dark-gray rounded">
       {/* <Header/> */}
       <Main>{children}</Main>
       <Popups />

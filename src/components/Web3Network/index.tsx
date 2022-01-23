@@ -82,29 +82,27 @@ function Web3Network(): JSX.Element | null {
           className="grid grid-flow-col px-3 py-2 space-x-2 text-sm rounded-lg pointer-events-auto auto-cols-max bg-dark-1000 text-primary grey-border"
           onClick={() => [137, 1].includes(Number(sourceChain)) && toggleSourceModal()}
         >
-          <div style={{textAlign: 'center'}}>
-            <span className="text-primary" style={{whiteSpace: 'pre-line'}}>
-              {[137, 1].includes(Number(sourceChain)) 
-                ? `Bridging from ${NETWORK_LABEL[sourceChain]} to ${NETWORK_LABEL[destinationChain]}` 
+          <div style={{ textAlign: 'center' }}>
+            <span className="text-primary" style={{ whiteSpace: 'pre-line' }}>
+              {[137, 1].includes(Number(sourceChain))
+                ? `Bridging from ${NETWORK_LABEL[sourceChain]} to ${NETWORK_LABEL[destinationChain]}`
                 : 'Please connect to Polygon Mainnet or Ethereum Mainnet'}
             </span>
           </div>
-          <div style={{display: [137, 1].includes(Number(sourceChain)) ? 'initial' : 'none'}}>
+          <div style={{ display: [137, 1].includes(Number(sourceChain)) ? 'initial' : 'none' }}>
             <ChevronDownIcon width={16} height={16} className="ml-2 stroke-current" />
           </div>
         </div>
         <NetworkModel />
       </div>
       <div>
-        <Popover as="nav" className="z-10 w-full bg-transparent header-border-b">
+        <Popover as="nav" className="z-10 w-full bg-transparent">
           {({ open }) => (
             <>
               <div className="">
                 <div className="items-center justify-between">
-                  <div className="flex items-center justify-center">
+                  <div className="flex items-center justify-center" style={{ marginRight: '-0.6rem' }}>
                     <div className="flex items-center w-full space-x-2 item-header">
-                      {library && library.provider.isMetaMask && <div className="hidden sm:inline-block"></div>}
-
                       <div className="w-auto flex items-center rounded bg-dark-900 p-0.5 whitespace-nowrap grey-border">
                         {account && chainId && userEthBalance && (
                           <>

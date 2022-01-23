@@ -145,11 +145,24 @@ body {
 }
 
 
+
 .bg-dark-900 {
   background-color: rgb(22,21,34,1);
 }
 .bg-dark-1000 {
   background-color: rgb(13,4,21,1);
+}
+.bg-black {
+  background-color: black;
+}
+
+.bg-dark-gray {
+  background-color: #222222;
+}
+
+.py-none {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 

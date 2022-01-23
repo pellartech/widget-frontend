@@ -83,9 +83,6 @@ import { COMMON_BASES } from '../../../config/routing'
 import Header from '../../../components/Header'
 import ConnectButton from '../../../components/ConnectButton'
 
-
-
-
 export default function Swap() {
   const { i18n } = useLingui()
 
@@ -94,8 +91,6 @@ export default function Swap() {
   const destinationChain = useDestinationChain()
   const sourceChain = useSourceChain()
   const MATIC_WETH = COMMON_BASES[137][0]
-  
-
 
   // token warning stuff
   const [loadedInputCurrency, loadedOutputCurrency] = [
@@ -290,7 +285,6 @@ export default function Swap() {
 
   const [singleHopOnly] = useUserSingleHopOnly()
 
-  
   dispatch(
     setSourceChain({
       chainId: chainId.toString(),
@@ -305,8 +299,8 @@ export default function Swap() {
       })
     )
   }
-   // check if correct chain first 
-   if (chainId.toString() == '1') {
+  // check if correct chain first
+  if (chainId.toString() == '1') {
     dispatch(
       setDestinationChain({
         chainId: '137',
@@ -318,14 +312,7 @@ export default function Swap() {
         chainId: '1',
       })
     )
-  } 
-  
- 
-
-  
-
-  
-  
+  }
 
   // if (chainId.toString() == '4') {
   //   dispatch(
@@ -348,7 +335,7 @@ export default function Swap() {
           var wrappedNativeAssetAddress = ''
 
           const destinationChainName = NETWORK_LABEL[destinationChain]
-          
+
           if (destinationChainName == 'ethereum') {
             wrappedNativeAssetAddress = '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619'
           } else {
@@ -549,8 +536,7 @@ export default function Swap() {
 
   return (
     <>
-      
-      <Container id="swap-page" className="py-4 md:py-8 lg:py-12" style={{ paddingTop: '7rem' }}>
+      <Container id="swap-page" className="lg:py-12">
         <Head>
           <title>Umbria | Narni</title>
           <meta
@@ -565,22 +551,9 @@ export default function Swap() {
           tokens={importTokensNotInDefault}
           onConfirm={handleConfirmTokenWarning}
         />
-        
+
         <DoubleGlowShadow>
-          {/* <div>
-            <ToastContainer
-              position={toast.POSITION.TOP_RIGHT}
-              autoClose={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              icon={false}
-              transition={Slide}
-              draggable={false}
-              className={'bg-dark-800 rounded network-popup text-primary'}
-            />
-          </div> */}
-          <div className="p-4 space-y-4 rounded z-1">
+          <div className="p-4 space-y-4 rounded z-1 py-none">
             <SwapHeader
               input={currencies[Field.INPUT]}
               output={currencies[Field.OUTPUT]}
@@ -605,11 +578,13 @@ export default function Swap() {
             <div>
               <Web3Network />
             </div>
-            
+
             <div>
               <CurrencyInputPanel
                 // priceImpact={priceImpact}
-                label={independentField === Field.OUTPUT && !showWrap ? i18n._(t`Swap From (est.):`) : i18n._(t`Asset:`)}
+                label={
+                  independentField === Field.OUTPUT && !showWrap ? i18n._(t`Swap From (est.):`) : i18n._(t`Asset:`)
+                }
                 value={formattedAmounts[Field.INPUT]}
                 showMaxButton={showMaxButton}
                 currency={currencies[Field.INPUT]}
@@ -625,16 +600,15 @@ export default function Swap() {
               <div className="p-3 rounded sm:inline"></div>
             </div>
 
-
             <BottomGrouping>
               {swapIsUnsupported ? (
                 <Button color="red" size="lg" disabled>
                   {i18n._(t`Unsupported Asset`)}
                 </Button>
               ) : !account ? (
-                <ConnectButton/>
-                // <Header/>
-              ) : showWrap ? (
+                <ConnectButton />
+              ) : // <Header/>
+              showWrap ? (
                 <Button color="gradient" size="lg" disabled={Boolean(wrapInputError)} onClick={onWrap}>
                   {wrapInputError ??
                     (wrapType === WrapType.WRAP
@@ -658,7 +632,12 @@ export default function Swap() {
                     }
                   }}
                   id="swap-button"
-                  disabled={!isValid || (priceImpactSeverity > 3 && !isExpertMode) || !!swapCallbackError || ![137, 1].includes(chainId)}
+                  disabled={
+                    !isValid ||
+                    (priceImpactSeverity > 3 && !isExpertMode) ||
+                    !!swapCallbackError ||
+                    ![137, 1].includes(chainId)
+                  }
                   error={isValid && priceImpactSeverity > 2 && !swapCallbackError}
                 >
                   {swapInputError ? i18n._(t`Bridge`) : i18n._(t`Bridge`)}

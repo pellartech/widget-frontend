@@ -135,7 +135,7 @@ export default function CurrencyInputPanel({
         {!hideInput && (
           <div
             className={classNames(
-              'flex items-center w-full space-x-3 rounded bg-dark-1000 focus:bg-dark-700 p-3 sm:w-3/5'
+              'flex items-center w-full space-x-3 rounded bg-black focus:bg-dark-1000 p-3 sm:w-3/5'
               // showMaxButton && selectedCurrencyBalance && 'px-3'
             )}
           >
