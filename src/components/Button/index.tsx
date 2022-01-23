@@ -14,7 +14,7 @@ const FILLED = {
   red: 'bg-red bg-opacity-80 w-full rounded text-high-emphesis hover:bg-opacity-100 disabled:bg-opacity-80',
   blue: 'bg-blue bg-opacity-80 w-full rounded text-high-emphesis hover:bg-opacity-100 disabled:bg-opacity-80',
   pink: 'bg-gradient-to-r from-pink to-opaque-pink w-full rounded text-high-emphesis opacity-80 hover:opacity-100 disabled:bg-opacity-80',
-  gray: 'border rounded shadow-sm focus:ring-2 focus:ring-offset-2 bg-dark-900 bg-opacity-80 w-full text-primary border-dark-800 hover:bg-opacity-100 focus:ring-offset-dark-700 focus:ring-dark-800 disabled:bg-opacity-80',
+  gray: 'border rounded shadow-sm focus:ring-2 focus:ring-offset-2 bg-dark-gray bg-opacity-80 w-full text-primary border-dark-800 hover:bg-opacity-100 focus:ring-offset-dark-700 focus:ring-dark-800 disabled:bg-opacity-80',
   green: 'bg-green bg-opacity-80 w-full rounded text-high-emphesis hover:bg-opacity-100 disabled:bg-opacity-80',
   gradient:
     'w-full text-high-emphesis bg-gradient-to-r bridge-button opacity-90 hover:opacity-100 disabled:bg-opacity-60',
@@ -117,7 +117,7 @@ export function ButtonError({
   disabled?: boolean
 } & ButtonProps) {
   if (error) {
-    return <Button color="gray"  disabled={true} size="lg" {...rest} />
+    return <Button color="gray" disabled={true} size="lg" {...rest} />
   } else {
     return <Button color={disabled ? 'gray' : 'gradient'} disabled={disabled} size="lg" {...rest} />
   }

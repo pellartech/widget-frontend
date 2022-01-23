@@ -30,7 +30,7 @@ function AppBar(): JSX.Element {
               <div className="items-center justify-between">
                 <div className="flex items-center justify-center p-4">
                   <div className="flex items-center w-full space-x-2 item-header">
-                    <div className="w-auto flex items-center rounded bg-dark-900 p-0.5 whitespace-nowrap">
+                    <div className="w-auto flex items-center rounded bg-dark-gray p-0.5 whitespace-nowrap">
                       {account && chainId && userEthBalance && (
                         <>
                           <div className="px-3 py-2 primary-text">
