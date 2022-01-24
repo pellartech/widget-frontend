@@ -61,7 +61,7 @@ export default function PopupItem({
 
   return (
     <div className="mb-4">
-      <div className="relative w-full overflow-hidden rounded bg-dark-900">
+      <div className="relative w-full overflow-hidden rounded bg-dark-gray">
         <div className="flex flex-row p-4">
           {popupContent}
           <div className="cursor-pointer hover:text-white">

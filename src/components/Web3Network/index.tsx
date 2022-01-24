@@ -45,7 +45,7 @@ function Web3Network(): JSX.Element | null {
   console.log('weth', userWethBalance)
   if (!account) {
     return (
-      <div className="flex items-center rounded bg-dark-1000 p-0.5 whitespace-nowrap">
+      <div className="flex items-center rounded bg-dark-gray p-0.5 whitespace-nowrap">
         <div
           className="px-3 py-2 space-x-2 text-sm rounded-lg auto-cols-max text-primary primary-text"
           style={{ width: '100%', textAlign: 'center' }}

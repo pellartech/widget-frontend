@@ -246,7 +246,7 @@ export default function NetworkModal(): JSX.Element | null {
               }
             }}
           >
-            <div className="flex items-center w-full h-full p-3 space-x-3 rounded bg-dark-1000">
+            <div className="flex items-center w-full h-full p-3 space-x-3 rounded bg-dark-gray">
               <Image
                 src={NETWORK_ICON[pair.source]}
                 alt={`Switch to ${NETWORK_LABEL[pair.source]} Network`}

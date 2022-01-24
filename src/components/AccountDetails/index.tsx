@@ -100,7 +100,7 @@ const AccountDetails: FC<AccountDetailsProps> = ({
                 <Typography>{ENSName}</Typography>
               </div>
             ) : (
-              <div className="px-3 py-2 rounded bg-dark-800">
+              <div className="px-3 py-2 rounded bg-dark-gray">
                 {getStatusIcon()}
                 <Typography>{account && shortenAddress(account)}</Typography>
               </div>
