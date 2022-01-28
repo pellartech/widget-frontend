@@ -32,7 +32,7 @@ function Web3Network(): JSX.Element | null {
   const toggleWalletModal = useWalletModalToggle()
   const toggleSourceModal = useNetworkModalToggle()
   var destinationChain = useDestinationChain()
-  console.log('destination', destinationChain)
+  // console.log('destination', destinationChain)
   var sourceChain = useSourceChain()
   var otherChainId = 0
   var [isExpertMode] = useExpertModeManager()

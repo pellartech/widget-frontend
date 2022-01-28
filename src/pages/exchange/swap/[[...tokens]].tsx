@@ -535,9 +535,9 @@ export default function Swap() {
   //     router.push(`/swap/${Currency.getNativeCurrencySymbol(chainId)}`);
   //   }
   // }, [chainId, previousChainId, router]);
-  console.log(`field ${Field.INPUT}`)
-  console.log(currencies[Field.INPUT])
-  console.log(chainId)
+  // console.log(`field ${Field.INPUT}`)
+  // console.log(currencies[Field.INPUT])
+  // console.log(chainId)
 
   return (
     <>
