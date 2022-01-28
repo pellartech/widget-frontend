@@ -290,15 +290,7 @@ export default function Swap() {
       chainId: chainId.toString(),
     })
   )
-  if (chainId.toString() === '137' && Field.INPUT && currencies[Field.INPUT].symbol !== 'WETH') {
-    // then force set WETH
-    dispatch(
-      selectCurrency({
-        field: Field.INPUT,
-        currencyId: MATIC_WETH.address,
-      })
-    )
-  }
+
   // check if correct chain first
   if (chainId.toString() == '1') {
     dispatch(
@@ -327,6 +319,18 @@ export default function Swap() {
   //     })
   //   )
   // }
+  if (Field.INPUT && chainId.toString() === '137') {
+    if (currencies[Field.INPUT]) {
+      if (currencies[Field.INPUT].name === 'Matic') {
+        dispatch(
+          selectCurrency({
+            field: Field.INPUT,
+            currencyId: MATIC_WETH.address,
+          })
+        )
+      }
+    }
+  }
 
   const handleSwap = async () => {
     if (currencies.INPUT.isNative) {
@@ -531,6 +535,7 @@ export default function Swap() {
   //     router.push(`/swap/${Currency.getNativeCurrencySymbol(chainId)}`);
   //   }
   // }, [chainId, previousChainId, router]);
+  console.log(`field ${Field.INPUT}`)
   console.log(currencies[Field.INPUT])
   console.log(chainId)
 
