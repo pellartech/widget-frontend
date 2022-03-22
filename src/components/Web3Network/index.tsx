@@ -41,8 +41,6 @@ function Web3Network(): JSX.Element | null {
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   const getWethBalance = useTokenBalances(account ?? undefined, [MATIC_WETH])
   const userWethBalance = getWethBalance[MATIC_WETH.address]
-  console.log('eth', userEthBalance)
-  console.log('weth', userWethBalance)
   if (!account) {
     return (
       <div className="flex items-center rounded bg-dark-gray p-0.5 whitespace-nowrap">

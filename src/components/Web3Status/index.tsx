@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { SUPPORTED_WALLETS, injected } from '../../config/wallets'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 

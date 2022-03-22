@@ -363,7 +363,7 @@ export default function Swap() {
                     value: formattedAmounts[Field.INPUT].toBigNumber(),
                   })
                   .then((res) => {
-                    console.log(res)
+                    // console.log(res)
                     addTransaction(res)
 
                     setSwapState({
@@ -406,7 +406,7 @@ export default function Swap() {
 
             let numberOfTokens = formattedAmounts[Field.INPUT]
 
-            console.log(maxTransfer)
+            // console.log(maxTransfer)
 
             if (parseFloat(formattedAmounts[Field.INPUT]) <= maxTransfer) {
               contract

@@ -88,11 +88,11 @@ export default function WalletModal({
       return true
     })
     // log selected wallet
-    ReactGA.event({
-      category: 'Wallet',
-      action: 'Change Wallet',
-      label: name,
-    })
+    // ReactGA.event({
+    //   category: 'Wallet',
+    //   action: 'Change Wallet',
+    //   label: name,
+    // })
     setPendingWallet(conn) // set wallet for pending view
     setWalletView(WALLET_VIEWS.PENDING)
 
