@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { SUPPORTED_WALLETS, injected } from '../../config/wallets'
 import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
 
@@ -128,10 +128,12 @@ function Web3StatusInner() {
 }
 
 export default function Web3Status() {
-  const { active, account } = useWeb3React()
+  const web3 = useWeb3React()
+  const { active, account, deactivate } = web3
   const contextNetwork = useWeb3React(NetworkContextName)
 
   const { ENSName } = useENSName(account ?? undefined)
+  const [currAccount, setCurrAccount] = useState<any>(null)
 
   const allTransactions = useAllTransactions()
 
@@ -142,6 +144,28 @@ export default function Web3Status() {
 
   const pending = sortedRecentTransactions.filter((tx) => !tx.receipt).map((tx) => tx.hash)
   const confirmed = sortedRecentTransactions.filter((tx) => tx.receipt).map((tx) => tx.hash)
+
+  // if its detected that the accounts are out of sync, force reconnect on the iframe end
+  const handleDisconnect = async () => {
+    deactivate()
+  }
+
+  // constantly check if theres any discrepancies in accounts
+  useEffect(() => {
+    if (active) {
+      // no account, set account
+      if (!currAccount) {
+        setCurrAccount(account)
+      }
+
+      // otherwise check if different and handle
+      if (currAccount && account !== currAccount) {
+        // console.log('different', currAccount, account)
+        setCurrAccount(account)
+        handleDisconnect()
+      }
+    }
+  }, [currAccount, account])
 
   if (!contextNetwork.active && !active) {
     return null

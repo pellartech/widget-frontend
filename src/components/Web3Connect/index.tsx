@@ -32,7 +32,10 @@ export default function Web3Connect({ color = 'gray', size = 'sm', className = '
       size={size}
       {...rest}
     >
-      {`Click to connect/reconnect your wallet`}
+      <>
+        Please reconnect to <br />
+        switch account
+      </>
     </Button>
   )
 }

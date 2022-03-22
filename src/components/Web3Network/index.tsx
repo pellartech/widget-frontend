@@ -49,7 +49,8 @@ function Web3Network(): JSX.Element | null {
           style={{ width: '100%', textAlign: 'center' }}
           onClick={() => toggleWalletModal()}
         >
-          Please connect your account before bridging
+          Please connect your account before bridging. <br />
+          If you have switched accounts you will have to reconnect to use the bridge.
         </div>
         <NetworkModel />
       </div>

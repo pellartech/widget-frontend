@@ -82,12 +82,6 @@ export default function ConnectButton() {
     )
   }
 
-  useEffect(() => {
-    if (window.ethereum) {
-      const ethereum = window.ethereum
-      console.log(ethereum)
-    }
-  }, [])
   return (
     <>
       <Button
@@ -97,7 +91,7 @@ export default function ConnectButton() {
         size={'lg'}
         className={'w-full'}
       >
-        {connecting ? 'Check your MetaMask Widget...' : `Click to connect/reconnect your wallet`}
+        {connecting ? 'Check your MetaMask Widget...' : `Click to connect your wallet`}
       </Button>
       {pendingError && errorJSX()}
     </>
